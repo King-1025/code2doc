@@ -1,13 +1,13 @@
 {
-  "type":"android",
+  "type":"java",
   "desc":"flag：0(忽略规则)，1(正向匹配)，2(反向匹配)；max:最大文件数量",
   "max":18,
   "dir":{
     "flag":2,
-    "rule":[".git",".idea","ocr_ui"]
+    "rule":[".git"]
   },
   "file":{
     "flag":1,
-    "rule":[".java",".gradle",".properties"]
+    "rule":[".java",".xml",".properties"]
   }
 }

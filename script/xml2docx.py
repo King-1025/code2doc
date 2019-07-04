@@ -1,10 +1,13 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # -*- coding: UTF-8; -*-
 
-from xml.dom.minidom import parse
-from docx import Document
-from docx.shared import Pt as pt
+try:
+  from xml.dom.minidom import parse
+  from docx import Document
+  from docx.shared import Pt as pt
+except ModuleNotFoundError as e:
+  print(e)
 
 import sys
 

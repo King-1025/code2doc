@@ -9,7 +9,7 @@ if [ -e $STATUS ]; then
    exit 0
  fi
 
-pip install -r $REQU
+pip3 install -r $REQU
 
 date '+%Y-%m-%d %H:%M:%S' | tee $STATUS
 echo "init ok!"
