@@ -2,7 +2,7 @@
 ---
 运行环境：python3
 
-安装：
+配置：
    code.sh init   ---   for Linux
    
    code.cmd init  ---   for Windows 
@@ -19,5 +19,5 @@
 高级用法：
     //TODO ... 
 
-卸载：
+重置：
    code bye
