@@ -14,18 +14,21 @@ __VERSION__="v1.0"
 
 if __name__ == "__main__":
     argc = len(sys.argv)
+    current,_=os.path.split(sys.argv[0])
+    #print(current)
+    #sys.exit(0)
     if argc > 1:
       opt=sys.argv[1]
       if opt == "init":
         if sys.platform == "linux":
-          os.system("script/linux_init.sh")
+          os.system(current+"/linux_init.sh")
         elif sys.platform == "win32":
-          os.system("script\windows_init.cmd")
+          os.system(current+"\windows_init.cmd")
         else:
           raise Exception("暂不支持该类系统:"+sys.platform)
         sys.exit(0)
       if opt == "bye":
-        status=os.path.join("status")
+        status=os.path.join(current,"status")
         if os.path.exists(status):
           #with open(status,"r") as st: 
           os.remove(status)
@@ -46,6 +49,9 @@ if __name__ == "__main__":
     
     parser.add_argument("project_path",help="工程路径")
     args = parser.parse_args()
+    
+    if not os.path.exists(args.o):
+        os.makedirs(args.o)
 
     outxml=os.path.join(args.o,"out.xml")
     outdoc=os.path.join(args.o,args.f)
@@ -54,15 +60,15 @@ if __name__ == "__main__":
     else:
        config=None
        if args.p == "android":
-          config=os.path.join("..","config","android.json")
+          config=os.path.join(current,"..","config","android.json")
        elif args.p == "java":
-          config=os.path.join("..","config","java.json")
+          config=os.path.join(current,"..","config","java.json")
        elif args.p == "javaweb":
-          config=os.path.join("..","config","javaweb.json")
+          config=os.path.join(current,"..","config","javaweb.json")
        elif args.p == "python":
-          config=os.path.join("..","config","python.json")
+          config=os.path.join(current,"..","config","python.json")
        elif  args.p == "default":
-          config=os.path.join("..","config","default.json")
+          config=os.path.join(current,"..","config","default.json")
        xmltool.app(args.project_path,config,outxml,args.m)
    
     if os.path.exists(outxml): 

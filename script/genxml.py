@@ -29,7 +29,9 @@ def get_dir_list(path, placeholder=''):
     return result
 
 def create_project_tree(path):
-    return get_dir_list(os.path.dirname(path))
+    if not os.path.isdir(path):
+       raise Exception("Invalid path:"+str(path))
+    return get_dir_list(path)
 
 def check_rule(o,f,r,s,t):
     flag=o
