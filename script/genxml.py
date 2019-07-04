@@ -63,9 +63,9 @@ def check_rule(o,f,r,s,t):
               raise Exception("Invalid type:"+str(t))
     return flag 
 
-def match_file_to_output(path,rule=None):
+def match_file_to_output(path,rule=None,mcount=None,default_max_count=18):
     file_list=[]
-    max_count=10
+    max_count=default_max_count
     rule_dir_flag,rule_dir = 0,[]
     rule_file_flag,rule_file = 0,[]
     if rule != None:
@@ -78,7 +78,9 @@ def match_file_to_output(path,rule=None):
         rule_file_flag,rule_file = cfile["flag"],cfile["rule"]
         #print(rule_dir_flag,rule_dir)
         #print(rule_file_flag,rule_file)
-        #return
+        #return 
+    if mcount != None:
+       max_count=int(mcount)
     count=0
     for root,dirs,files in os.walk(path):
       for file in files:
@@ -94,7 +96,7 @@ def match_file_to_output(path,rule=None):
                return file_list,len(file_list)
     return file_list,len(file_list)
 
-def app(path="./",config=None,output="out.xml"):
+def app(path="./",config=None,output="out.xml",max_count=None):
     with open(output,"w") as f:
       f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
       f.write("<codeDoc>\n")
@@ -104,7 +106,7 @@ def app(path="./",config=None,output="out.xml"):
       f.write(create_project_tree(path))
       f.write("</content>\n")
       f.write("</part>\n")
-      file_list,size=match_file_to_output(path,config)
+      file_list,size=match_file_to_output(path,config,max_count)
       for t in range(0,size):
         target=str(file_list[t])
         f.write("<part>\n")

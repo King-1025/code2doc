@@ -8,7 +8,7 @@ from docx.shared import Pt as pt
 
 import sys
 
-def from_xml_to_create_docx(input_xml,output_docx="out.docx"):
+def from_xml_to_create_docx(input_xml,output_docx):
    with open(input_xml,"r") as fxml:
       tree = parse(fxml)
       root = tree.documentElement
@@ -64,11 +64,15 @@ def from_xml_to_create_docx(input_xml,output_docx="out.docx"):
       else:
          print("Not found any parts in %s" % input_xml)
 
-argc = len(sys.argv)
-if argc == 2 or argc == 3:
-  if argc == 2:
-     from_xml_to_create_docx(str(sys.argv[1]))
-  elif argc == 3:
-     from_xml_to_create_docx(str(sys.argv[1]),str(sys.argv[2]))
-else:
-  print("Usage:%s <xml_file> [out_docx]" % str(sys.argv[0]))
+def app(input_xml,output_docx="out.docx"):
+    from_xml_to_create_docx(input_xml,output_docx)
+
+if __name__ == "__main__":
+   argc = len(sys.argv)
+   if argc == 2 or argc == 3:
+     if argc == 2:
+        app(str(sys.argv[1]))
+   elif argc == 3:
+        app(str(sys.argv[1]),str(sys.argv[2]))
+   else:
+     print("Usage:%s <xml_file> [out_docx]" % str(sys.argv[0]))
