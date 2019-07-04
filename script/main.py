@@ -58,7 +58,8 @@ if __name__ == "__main__":
     if args.c != None:
        xmltool.app(args.project_path,args.c,outxml)
     else:
-       config=None
+       #config=None
+       config=os.path.join(current,"..","config","default.json")
        if args.p == "android":
           config=os.path.join(current,"..","config","android.json")
        elif args.p == "java":
