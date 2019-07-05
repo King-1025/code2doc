@@ -11,8 +11,8 @@ except ModuleNotFoundError as e:
 
 import sys
 
-def from_xml_to_create_docx(input_xml,output_docx):
-   with open(input_xml,"r") as fxml:
+def from_xml_to_create_docx(input_xml,output_docx,charset):
+   with open(input_xml,"r",encoding=charset) as fxml:
       tree = parse(fxml)
       root = tree.documentElement
       part_list = root.getElementsByTagName("part")
@@ -67,15 +67,15 @@ def from_xml_to_create_docx(input_xml,output_docx):
       else:
          print("Not found any parts in %s" % input_xml)
 
-def app(input_xml,output_docx="out.docx"):
-    from_xml_to_create_docx(input_xml,output_docx)
+def app(input_xml,output_docx="out.docx",charset="utf-8"):
+    from_xml_to_create_docx(input_xml,output_docx,charset)
 
 if __name__ == "__main__":
    argc = len(sys.argv)
    if argc == 2 or argc == 3:
      if argc == 2:
         app(str(sys.argv[1]))
-   elif argc == 3:
+     elif argc == 3:
         app(str(sys.argv[1]),str(sys.argv[2]))
    else:
      print("Usage:%s <xml_file> [out_docx]" % str(sys.argv[0]))

@@ -7,6 +7,8 @@ import json
 import re
 import sys
 
+import ch2arset
+
 BRANCH = '├─'
 LAST_BRANCH = '└─'
 TAB = '│  '
@@ -65,13 +67,19 @@ def check_rule(o,f,r,s,t):
               raise Exception("Invalid type:"+str(t))
     return flag 
 
+def check_charset(fp):
+    return ch2arset.check_charset(fp,0.5)
+
 def match_file_to_output(path,rule=None,mcount=None,default_max_count=18):
     file_list=[]
     max_count=default_max_count
     rule_dir_flag,rule_dir = 0,[]
     rule_file_flag,rule_file = 0,[]
     if rule != None:
-      with open(rule,"r") as load_f:
+      flag,charset=check_charset(rule)
+      if flag != True:
+         raise Exception("unknown charset!")
+      with open(rule,"r",encoding=charset) as load_f:
         config = json.load(load_f)
         max_count=config["max"]
         cdir=config["dir"]
@@ -92,14 +100,16 @@ def match_file_to_output(path,rule=None,mcount=None,default_max_count=18):
         if is_add == True:
            is_add=check_rule(True,rule_file_flag,rule_file,suffix,"file")
            if is_add == True:
-             file_list.append(fp)
-             count+=1
-             if count >= max_count:
-               return file_list,len(file_list)
+             ff,cc=check_charset(fp)
+             if ff == True:
+               file_list.append([fp,cc])
+               count+=1
+               if count >= max_count:
+                 return file_list,len(file_list)
     return file_list,len(file_list)
 
 def app(path="./",config=None,output="out.xml",max_count=None):
-    with open(output,"w") as f:
+    with open(output,"w",encoding="utf-8") as f:
       f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
       f.write("<codeDoc>\n")
       f.write("<part>\n")
@@ -110,12 +120,13 @@ def app(path="./",config=None,output="out.xml",max_count=None):
       f.write("</part>\n")
       file_list,size=match_file_to_output(path,config,max_count)
       for t in range(0,size):
-        target=str(file_list[t])
+        target=str(file_list[t][0])
+        charset=str(file_list[t][1])
         f.write("<part>\n")
         f.write("<header font-name=\"宋体\" font-size=\"10.5\" bold=\"yes\">"+str(t+1)+". "+target+"</header>\n")
         f.write("<content font-name=\"宋体\" font-size=\"10.5\">\n")
-        print(target)
-        with open(target,"r") as tf:
+        print(target,charset)
+        with open(target,"r",encoding=charset) as tf:
            for ss in tf.readlines():
               if ss == "\n":
                  continue
