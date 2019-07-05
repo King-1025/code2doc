@@ -78,7 +78,7 @@ def match_file_to_output(path,rule=None,mcount=None,default_max_count=18):
     if rule != None:
       flag,charset=check_charset(rule)
       if flag != True:
-         raise Exception("unknown charset!")
+         raise Exception("unknown charset! "+str(rule))
       with open(rule,"r",encoding=charset) as load_f:
         config = json.load(load_f)
         max_count=config["max"]

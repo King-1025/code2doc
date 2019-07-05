@@ -12,11 +12,11 @@ def check_charset(fp,mif=0.0):
     charset_list=[]
     
     if sys.platform == "linux":
-       charset_list=["utf-8","gbk","ascill"]
+       charset_list=["utf-8","gbk","ascii"]
     elif sys.platform == "win32":
-       charset_list=["gbk","utf-8","ascill"]
+       charset_list=["gbk","utf-8","ascii"]
     else:
-       charset_list=["ascill","utf-8","gbk"]
+       charset_list=["ascii","utf-8","gbk"]
     
     ff,cc=test_charset(charset_list,fp)
     if ff == True:
@@ -35,7 +35,7 @@ def check_charset(fp,mif=0.0):
     return test_charset(charset_list,fp)
 
 def test_charset(charset_list,file_path):
-    print(charset_list)
+    #print(charset_list)
     for charset in charset_list:
       try:
         #print(charset)
