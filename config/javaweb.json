@@ -8,6 +8,6 @@
   },
   "file":{
     "flag":1,
-    "rule":[".java",".xml",".html",".js",".properties"]
+    "rule":[".java",".jsp",".xml",".html",".properties"]
   }
 }

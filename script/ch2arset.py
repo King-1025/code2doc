@@ -3,7 +3,11 @@
 
 import os
 import sys
-import chardet
+
+try:
+   import chardet
+except Exception as e:
+   print(e)
 
 def check_charset(fp,mif=0.0):
     if not os.path.exists(fp):
