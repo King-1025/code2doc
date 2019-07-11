@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<!--简单类型定义-->
+<xs:simpleType name="plainTextType">
+  <xs:restriction base="xs:string"/>
+</xs:simpleType>
+
+<xs:simpleType name="poundType">
+  <xs:restriction base="xs:integer">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="1638"/>
+  </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="choiceType">
+  <xs:restriction base="xs:string">
+      <xs:enumeration value="yes"/>
+      <xs:enumeration value="no"/>
+  </xs:restriction>
+<xs:simpleType>
+
+<!--复杂类型定义-->
+<xs:complexType name="blockType">
+  <xs:sequence>
+    <xs:element name="header" type="plainTextType">
+      <xs:attribute name="font-name" type="plainTextType"/>
+      <xs:attribute name="font-size" type="poundType" default="15"/>
+      <xs:attribute name="bold" type="choiceType" default="yes"/>
+    </xs:element>
+    <xs:element name="content" type="plainTextType">
+      <xs:attribute name="font-size" type="poundType" default="12"/>
+    </xs:element>
+  </xs:sequence> 
+  <xs:attribute name="ignore" type="choiceType" default="no"/>
+</xs:complexType>
+
+<xs:complexType name="docType">
+  <xs:sequence>
+     <xs:element name="part" type="blockType" maxOccurs="unbounded"/>
+  </xs:sequence> 
+</xs:complexType>
+
+<!--元素定义-->
+<xs:element name="codeDoc" type="docType">
+
+</xs:schema>

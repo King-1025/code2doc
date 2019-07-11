@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<codeDoc xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="code_details.xsd">
+ <part>
+   <header font-size="20" bold="yes">
+      这是块头部 
+   </header>
+   <content font-size="25">
+      这是内容部分
+   </content>
+ </part>
+ 
+ <part ignore="no">
+   <header font-size="20" bold="yes">
+      这是块头部1 
+   </header>
+   <content font-size="25">
+      这是内容部分1
+   </content>
+ </part>
+</codeDoc>
